@@ -1,0 +1,448 @@
+#desktop{display: block}
+#panel{display: none}
+#mobile{display: none}
+/* @media (max-width: 600px) {
+    #mobile { display: block; }
+    #panel, #desktop { display: none; }
+}
+
+@media (min-width: 601px) and (max-width: 1200px) {
+    #mobile { display: none; }
+    #panel { display: block; }
+    #desktop { display: none; }
+}
+
+@media (min-width: 1201px) {
+    #mobile, #panel { display: none; }
+    #desktop { display: block; }
+} */
+
+/*-----------------mobile css----------------*/
+/* 通用樣式 */
+body {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+#mobile .navbar {
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    margin: 10px;
+}
+
+#mobile .title {
+    flex: none;
+    width: 50%;
+    text-align: left;
+    font-weight: bold;
+}
+
+#mobile .menu {
+    flex: none;
+    width: 50%;
+    justify-content: flex-end;
+    position: relative;
+}
+
+#mobile .welcome {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 250px;
+    background-color: rgb(200, 234, 243);
+}
+
+#mobile .welcometext {
+    flex: auto;
+    text-align: center;
+    font-size: 40px;
+    font-weight: bold;
+}
+.content0 {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    width: 90%;
+}
+.content1 {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    width: 90%;
+}
+.mp {
+    height: 50px;
+    background-color: rgb(200, 234, 243);
+    position: relative;
+    margin-top: 20px;
+}
+.mt {
+    margin-top: 20px;
+    position: relative;
+}
+
+.star {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    opacity: 0.8;
+}
+
+.imgStar {
+    position : absolute;
+    top : 1px;
+    right : 1px;
+    height : 20px;
+    width : 20px;
+}
+
+#mobile .title1 {
+    width: 100%;
+    height: 30px;
+    position: absolute;
+    bottom: 4px;
+    font-size: 20px;
+    text-align: center;
+    padding-top: 10px;
+    background-color: rgb(227, 238, 165);
+    opacity: 0.6;
+}
+
+/* 第一版特有樣式 */
+#menuIcon {
+    height: 22.4px;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+/* 第二版特有樣式 */
+#crossIcon {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+#mobile .top {
+    z-index: 2;
+    background-color: rgb(255, 255, 255);
+    width: 50%;
+    height: 2882.4px;
+    top: 0;
+    left: 50%;
+    position: absolute;
+    box-shadow: 0px 0px 9px gray;
+}
+
+#mobile .text {
+    font-size: 20px;
+    text-align: center;
+    width: 100%;
+    height: 30px;
+    padding-bottom: 25px;
+    margin-top: 15px;
+}
+
+#mobile .bottom {
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+/* 針對版面切換的顯示控制 */
+#version1 {
+    display: block;
+}
+
+#version2 {
+    display: none;
+}
+
+/*-----------------panel css----------------*/
+#panel .navbar{
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    margin: 10px;
+}
+#panel .title{
+    flex:none;
+    width: 50%;
+    text-align: left;
+    font-weight: bold;
+}
+#panel .menu{
+    flex:none;
+    width: 50%;
+    display: flex;
+    justify-content: flex-end;
+}
+#panel .item{
+    flex:none;
+    width: 60px;
+    text-align: center;
+    margin-left: 30px;
+}
+#panel .welcome{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    height: 250px;
+    background-color: rgb(200, 234, 243);
+}
+#panel .welcometext{
+    flex:auto;
+    text-align: center;
+    font-size: 40px;
+    font-weight: bold;
+}
+
+#panel .content2 {
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    width: 90%;
+    height: 810px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 50px 50px 210px 210px 210px;
+    gap: 20px;
+    grid-template-areas:
+    " promotion0 promotion0 promotion1 promotion1 "
+    " promotion2 promotion2 promotion2 promotion2 "
+    " title3 title4 title5 title6 "
+    " title7 title8 title9 title10 "
+    " title11 title11 title12 title12 ";
+    justify-content: center;
+}
+.content2 .pp0{
+    grid-area: promotion0;
+    background-color: rgb(200, 234, 243);
+    position: relative;
+}
+.content2 .pp1{
+    grid-area: promotion1;
+    background-color: rgb(200, 234, 243);
+    position: relative;
+}
+#panel .pp2{
+    grid-area: promotion2;
+    background-color: rgb(200, 234, 243);
+    position: relative;
+}
+#panel .promotiontext{
+    position: absolute;
+    width: 100px;
+    font-size: 20px;
+    text-align: center;
+    top: 15px;
+    left: 90px;
+}
+#panel .pt3{
+    grid-area: title3;
+    position: relative;
+}
+#panel .title1{
+    width: 100%;
+    height: 30px;
+    position: absolute;
+    bottom:0;
+    font-size: 20px;
+    text-align: center;
+    padding-top: 10px;
+    background-color: rgb(227, 238, 165);
+    opacity: 0.6;
+}
+#panel .title2{
+    width: 100%;
+    height: 30px;
+    position: absolute;
+    bottom:0;
+    font-size: 20px;
+    text-align: center;
+    padding-top: 10px;
+    background-color: rgb(227, 238, 165);
+    opacity: 0.6;
+}
+#panel .pt4{
+    grid-area: title4;
+    position: relative;
+}
+#panel .pt5{
+    grid-area: title5;
+    position: relative;
+}
+#panel .pt6{
+    grid-area: title6;
+    position: relative;
+}
+#panel .pt7{
+    grid-area: title7;
+    position: relative;
+}
+#panel .pt8{
+    grid-area: title8;
+    position: relative;
+}
+#panel .pt9{
+    grid-area: title9;
+    position: relative;
+}
+#panel .pt10{
+    grid-area: title10;
+    position: relative;
+}
+#panel .pt11{
+    grid-area: title11;
+    position: relative;
+}
+#panel .pt12{
+    grid-area: title12;
+    position: relative;
+}
+/*-----------------desktop css----------------*/
+#desktop .navbar{
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+    margin: 10px;
+}
+#desktop .title{
+    flex:none;
+    width: 50%;
+    text-align: left;
+    font-weight: bold;
+}
+#desktop .menu{
+    flex:none;
+    width: 50%;
+    display: flex;
+    justify-content: flex-end;
+}
+#desktop .item{
+    flex:none;
+    width: 60px;
+    text-align: center;
+    margin-left: 30px;
+}
+#desktop .welcome{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    height: 250px;
+    background-color: rgb(200, 234, 243);
+}
+#desktop .welcometext{
+    flex:auto;
+    text-align: center;
+    font-size: 40px;
+    font-weight: bold;
+}
+#desktop .content3 {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    width: 1200px;
+    height: 510px;
+    display: grid;
+    grid-template-columns: 183.333px 183.333px 183.333px 183.333px 183.333px 183.333px;
+    grid-template-rows: 50px 210px 210px;
+    gap: 20px;
+    grid-template-areas:
+    " promotion0 promotion0 promotion1 promotion1 promotion2 promotion2 "
+    " title3 title3 title4 title5 title6 title7 "
+    " title8 title8 title9 title10 title11 title12 ";
+}
+#desktop .dp0{
+    grid-area: promotion0;
+    background-color: rgb(200, 234, 243);
+    position: relative;
+}
+#desktop .dp1{
+    grid-area: promotion1;
+    background-color: rgb(200, 234, 243);
+    position: relative;
+}
+#desktop .dp2{
+    grid-area: promotion2;
+    background-color: rgb(200, 234, 243);
+    position: relative;
+}
+#desktop .promotiontext{
+    position: absolute;
+    width: 100px;
+    font-size: 20px;
+    text-align: center;
+    top: 15px;
+    left: 90px;
+}
+#desktop .dt3{
+    grid-area: title3;
+    position: relative;
+}
+#desktop .title1{
+    width: 386.666px;
+    height: 30px;
+    position: absolute;
+    bottom:0;
+    font-size: 20px;
+    text-align: center;
+    padding-top: 10px;
+    background-color: rgb(227, 238, 165);
+    opacity: 0.6;
+}
+#desktop .title2{
+    width: 183.333px;
+    height: 30px;
+    position: absolute;
+    bottom:0;
+    font-size: 20px;
+    text-align: center;
+    padding-top: 10px;
+    background-color: rgb(227, 238, 165);
+    opacity: 0.6;
+}
+#desktop .dt4{
+    grid-area: title4;
+    position: relative;
+}
+#desktop .dt5{
+    grid-area: title5;
+    position: relative;
+}
+#desktop .dt6{
+    grid-area: title6;
+    position: relative;
+}
+#desktop .dt7{
+    grid-area: title7;
+    position: relative;
+}
+#desktop .dt8{
+    grid-area: title8;
+    position: relative;
+}
+#desktop .dt9{
+    grid-area: title9;
+    position: relative;
+}
+#desktop .dt10{
+    grid-area: title10;
+    position: relative;
+}
+#desktop .dt11{
+    grid-area: title11;
+    position: relative;
+}
+#desktop .dt12{
+    grid-area: title12;
+    position: relative;
+}

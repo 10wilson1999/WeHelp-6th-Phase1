@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+    <title>week3 task3</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+  </head>
+  <body>
+    <div id="mobile">
+      <!-- 第一版 -->
+      <div id="version1">
+        <div class="navbar">
+          <div class="title">My Website</div>
+          <div class="menu">
+            <div id="menuIcon">
+              <img src="picture/menu.png" height="20px" />
+            </div>
+          </div>
+        </div>
+        <div class="welcome">
+          <div class="welcometext">Welcome to MyHome</div>
+        </div>
+        <div class="content0"></div>
+      </div>
+      <!-- 第二版 -->
+      <div id="version2" style="display: none">
+        <div class="top">
+          <div id="crossIcon">
+            <img src="picture/cross.png" height="25px" />
+          </div>
+          <div class="text">Item 1</div>
+          <div class="text">Item 2</div>
+          <div class="text">Item 3</div>
+          <div class="text">Item 4</div>
+        </div>
+        <div class="bottom">
+          <div class="navbar">
+            <div class="title">My Website</div>
+            <div class="menu"></div>
+          </div>
+          <div class="welcome">
+            <div class="welcometext">Welcome to MyHome</div>
+          </div>
+          <div class="content1"></div>
+        </div>
+      </div>
+    </div>
+    <script>
+      //選取元素(透過 document.getElementById() 函式選取 HTML 元素，並將它們儲存為變數)
+      const menuIcon = document.getElementById("menuIcon");
+      const crossIcon = document.getElementById("crossIcon");
+      const version1 = document.getElementById("version1");
+      const version2 = document.getElementById("version2");
+
+      //對標籤進行操作(事件監聽與點擊事件處理)
+      menuIcon.addEventListener("click", () => {
+        version1.style.display = "none";
+        version2.style.display = "block";
+      });
+
+      crossIcon.addEventListener("click", () => {
+        version2.style.display = "none";
+        version1.style.display = "block";
+      });
+
+      fetch("https://padax.github.io/taipei-day-trip-resources/taipei-attractions-assignment-1")
+        .then(function (response) {
+          return response.json();
+        })
+        .then(function (data) {
+          const spots = data.data.results;
+          // console.log(spots);
+          renderSpots(spots, ".content0");
+          renderSpots(spots, ".content1");
+          renderSpots(spots, ".content2");
+          renderSpots(spots, ".content3");
+        });
+
+      const mobile = document.getElementById("mobile");
+      const panel = document.getElementById("panel");
+      const desktop = document.getElementById("desktop");
+
+      function updateLayout() {
+        const width = window.innerWidth;
+
+        if (width <= 599) {
+          // Mobile
+          document.getElementById("mobile").style.display = "block";
+          document.getElementById("panel").style.display = "none";
+          document.getElementById("desktop").style.display = "none";
+        } else if (width >= 600 && width <= 1199) {
+          // Panel
+          document.getElementById("mobile").style.display = "none";
+          document.getElementById("panel").style.display = "block";
+          document.getElementById("desktop").style.display = "none";
+        } else {
+          // Desktop
+          document.getElementById("mobile").style.display = "none";
+          document.getElementById("panel").style.display = "none";
+          document.getElementById("desktop").style.display = "block";
+        }
+      }
+
+      window.addEventListener("load", updateLayout);
+      window.addEventListener("resize", updateLayout);
+
+      function renderSpots(spots, divName) {
+        const contentDiv = document.querySelector(divName);
+        contentDiv.replaceChildren(); // 清空內容
+
+        if (divName === ".content0" || divName === ".content1") {
+          // mobile顯示前 3 個小方塊
+          for (let i = 0; i < 3; i++) {
+            const spot = createSpotBoxSmallMP(spots[i], "mp");
+            contentDiv.appendChild(spot);
+          }
+          // mobile顯示接下來的 10 個大方塊
+          for (let i = 3; i < 13; i++) {
+            const spot = createSpotBoxBigMT(spots[i], "mt");
+            contentDiv.appendChild(spot);
+          }
+        } else if (divName === ".content2") {
+          // panel顯示前 3 個小方塊
+          for (let i = 0; i < 3; i++) {
+            const spot = createSpotBoxSmallPP(spots[i], `pp${i}`);
+            contentDiv.appendChild(spot);
+          }
+          // panel顯示接下來的 10 個大方塊
+          for (let i = 3; i < 13; i++) {
+            const spot = createSpotBoxBigPT(spots[i], `pt${i}`);
+            contentDiv.appendChild(spot);
+          }
+        } else {
+          // desktop顯示前 3 個小方塊
+          for (let i = 0; i < 3; i++) {
+            const spot = createSpotBoxSmallDP(spots[i], `dp${i}`);
+            contentDiv.appendChild(spot);
+          }
+          // desktop顯示接下來的 10 個大方塊
+          for (let i = 3; i < 13; i++) {
+            const spot = createSpotBoxBigDT(spots[i], `dt${i}`);
+            contentDiv.appendChild(spot);
+          }
+        }
+      }
+
+      // mobile小方塊
+      function createSpotBoxSmallMP(spot, Name) {
+        const box = document.createElement("div");
+        box.className = Name;
+
+        // 處理圖片（只取第一張）
+        console.log(spot.filelist.split("http")[1]);
+        const firstImageUrl = spot.filelist.split("http")[1] ? "http" + spot.filelist.split("http")[1]  : "";
+
+        const img = document.createElement("img");
+        img.src = firstImageUrl;
+        img.style.width = "80px";
+        img.style.height = "50px";
+
+        // 處理標題
+        const title = document.createElement("div");
+        title.textContent = spot.stitle;
+        title.style.position = "absolute";
+        title.style.width = "150px";
+        title.style.fontSize = "20px";
+        title.style.textAlign = "left";
+        title.style.top = "10px";
+        title.style.left = "90px";
+
+        // 將圖片和標題加入到盒子中
+        box.appendChild(img);
+        box.appendChild(title);
+
+        return box;
+      }
+
+      // mobile大方塊
+      function createSpotBoxBigMT(spot, Name) {
+        const box = document.createElement("div");
+        box.className = Name;
+        box.style.position = "relative";
+
+        // 處理星星
+        const star = document.createElement("div");
+        star.className = "star";
+
+        const imgStar = document.createElement("img");
+        imgStar.className = "imgStar";
+        imgStar.src = "picture/star.png";
+
+        // 處理圖片（只取第一張）
+        console.log(spot.filelist.split("http")[1]);
+        const firstImageUrl = spot.filelist.split("http")[1]  ? "http" + spot.filelist.split("http")[1]  : "";
+
+        const img = document.createElement("img");
+        img.src = firstImageUrl;
+        img.alt = "Cinque Terre";
+        img.style.width = "100%";
+        img.style.height = "210px";
+
+        // 處理標題
+        const title = document.createElement("div");
+        title.textContent = spot.stitle;
+        title.style.width = "100%";
+        title.style.height = "30px";
+        title.style.position = "absolute";
+        title.style.top = "170px";
+        title.style.fontSize = "20px";
+        title.style.textAlign = "center";
+        title.style.paddingTop = "5px";
+        title.style.paddingBottom = "5px";
+        title.style.backgroundColor = "rgb(227, 238, 165)";
+        title.style.opacity = "0.8";
+        title.style.overflow = 'hidden';         // 隱藏超出範圍的文字
+        title.style.whiteSpace = 'nowrap';      // 禁止文字換行
+        title.style.textOverflow = 'ellipsis';  // 超出範圍時顯示 "..."
+
+        // 將圖片和標題加入到盒子中
+        star.appendChild(imgStar);
+        box.appendChild(star);
+        box.appendChild(img);
+        box.appendChild(title);
+
+        return box;
+      }
+      // panel小方塊
+      function createSpotBoxSmallPP(spot, Name) {
+        const box = document.createElement("div");
+        box.className = Name;
+
+        // 處理圖片（只取第一張）
+        console.log(spot.filelist.split("http")[1]);
+        const firstImageUrl = spot.filelist.split("http")[1]  ? "http" + spot.filelist.split("http")[1]  : "";
+
+        const img = document.createElement("img");
+        img.src = firstImageUrl;
+        img.style.width = "80px";
+        img.style.height = "50px";
+
+        // 處理標題
+        const title = document.createElement("div");
+        title.textContent = spot.stitle;
+        title.style.position = "absolute";
+        title.style.width = "150px";
+        title.style.fontSize = "20px";
+        title.style.textAlign = "left";
+        title.style.top = "10px";
+        title.style.left = "90px";
+
+        // 將圖片和標題加入到盒子中
+        box.appendChild(img);
+        box.appendChild(title);
+
+        return box;
+      }
+      // panel大方塊
+      function createSpotBoxBigPT(spot, Name) {
+        const box = document.createElement("div");
+        box.className = Name;
+        box.style.position = "relative";
+
+        // 處理星星
+        const star = document.createElement("div");
+        star.className = "star";
+
+        const imgStar = document.createElement("img");
+        imgStar.className = "imgStar";
+        imgStar.src = "picture/star.png";
+
+        // 處理圖片（只取第一張）
+        console.log(spot.filelist.split("http")[1]);
+        const firstImageUrl = spot.filelist.split("http")[1]  ? "http" + spot.filelist.split("http")[1]  : "";
+
+        const img = document.createElement("img");
+        img.src = firstImageUrl;
+        img.alt = "Cinque Terre";
+        img.style.width = "100%";
+        img.style.height = "210px";
+
+        // 處理標題
+        const title = document.createElement("div");
+        title.textContent = spot.stitle;
+        title.style.width = "100%";
+        title.style.height = "30px";
+        title.style.position = "absolute";
+        title.style.top = "170px";
+        title.style.fontSize = "20px";
+        title.style.textAlign = "center";
+        title.style.paddingTop = "5px";
+        title.style.paddingBottom = "5px";
+        title.style.backgroundColor = "rgb(227, 238, 165)";
+        title.style.opacity = "0.8";
+        title.style.overflow = 'hidden';         // 隱藏超出範圍的文字
+        title.style.whiteSpace = 'nowrap';      // 禁止文字換行
+        title.style.textOverflow = 'ellipsis';  // 超出範圍時顯示 "..."
+
+        // 將圖片和標題加入到盒子中
+        star.appendChild(imgStar);
+        box.appendChild(star);
+        box.appendChild(img);
+        box.appendChild(title);
+
+        return box;
+      }
+      // desktop小方塊
+      function createSpotBoxSmallDP(spot, Name) {
+        const box = document.createElement("div");
+        box.className = Name;
+
+        // 處理圖片（只取第一張）
+        console.log(spot.filelist.split("http")[1]);
+        const firstImageUrl = spot.filelist.split("http")[1]  ? "http" + spot.filelist.split("http")[1]  : "";
+
+        const img = document.createElement("img");
+        img.src = firstImageUrl;
+        img.style.width = "80px";
+        img.style.height = "50px";
+
+        // 處理標題
+        const title = document.createElement("div");
+        title.textContent = spot.stitle;
+        title.style.position = "absolute";
+        title.style.width = "150px";
+        title.style.fontSize = "20px";
+        title.style.textAlign = "left";
+        title.style.top = "10px";
+        title.style.left = "90px";
+
+        // 將圖片和標題加入到盒子中
+        box.appendChild(img);
+        box.appendChild(title);
+
+        return box;
+      }
+      // desktop大方塊
+      function createSpotBoxBigDT(spot, Name) {
+        const box = document.createElement("div");
+        box.className = Name;
+        box.style.position = "relative";
+
+        // 處理星星
+        const star = document.createElement("div");
+        star.className = "star";
+
+        const imgStar = document.createElement("img");
+        imgStar.className = "imgStar";
+        imgStar.src = "picture/star.png";
+
+        // 處理圖片（只取第一張）
+        console.log(spot.filelist.split("http")[1]);
+        const firstImageUrl = spot.filelist.split("http")[1]  ? "http" + spot.filelist.split("http")[1]  : "";
+
+        const img = document.createElement("img");
+        img.src = firstImageUrl;
+        img.alt = "Cinque Terre";
+        img.style.width = "100%";
+        img.style.height = "210px";
+
+        // 處理標題
+        const title = document.createElement("div");
+        title.textContent = spot.stitle;
+        title.style.width = "100%";
+        title.style.height = "30px";
+        title.style.position = "absolute";
+        title.style.top = "170px";
+        title.style.fontSize = "20px";
+        title.style.textAlign = "center";
+        title.style.paddingTop = "5px";
+        title.style.paddingBottom = "5px";
+        title.style.backgroundColor = "rgb(227, 238, 165)";
+        title.style.opacity = "0.8";
+        title.style.overflow = 'hidden';         // 隱藏超出範圍的文字
+        title.style.whiteSpace = 'nowrap';      // 禁止文字換行
+        title.style.textOverflow = 'ellipsis';  // 超出範圍時顯示 "..."
+
+        // 將圖片和標題加入到盒子中
+        star.appendChild(imgStar);
+        box.appendChild(star);
+        box.appendChild(img);
+        box.appendChild(title);
+
+        return box;
+      }
+    </script>
+    <div id="panel">
+      <div class="navbar">
+        <div class="title">My Website</div>
+        <div class="menu">
+          <div class="item">Item 1</div>
+          <div class="item">Item 2</div>
+          <div class="item">Item 3</div>
+          <div class="item">Item 4</div>
+        </div>
+      </div>
+      <div class="welcome">
+        <div class="welcometext">Welcome to MyHome</div>
+      </div>
+      <div class="content2"></div>
+    </div>
+    <div id="desktop">
+      <div class="navbar">
+        <div class="title">My Website</div>
+        <div class="menu">
+          <div class="item">Item 1</div>
+          <div class="item">Item 2</div>
+          <div class="item">Item 3</div>
+          <div class="item">Item 4</div>
+        </div>
+      </div>
+      <div class="welcome">
+        <div class="welcometext">Welcome to MyHome</div>
+      </div>
+      <div class="content3"></div>
+    </div>
+  </body>
+</html>
