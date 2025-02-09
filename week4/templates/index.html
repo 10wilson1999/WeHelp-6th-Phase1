@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8"/>
+        <title>歡迎光臨</title>
+        <style>
+            body {position: relative; height: 100vh; margin: 0;}
+            .header {width: 100%;text-align: center; background-color: beige; padding: 15px 0; font-size: 20px; top: 0;}
+            .content1 {position: absolute; top: 25%; left: 50%; transform: translate(-50%, -50%); text-align: center;}
+            .content2 {position: absolute; top: 55%; left: 50%; transform: translate(-50%, -50%); text-align: center;}
+            .form-group{width: 250px; margin-top: 10px; margin-bottom: 10px;}
+            .divider {position: absolute; top: 40%; left: 50%; transform: translateX(-50%); width: 100%; height: 0.5px; background-color: black;}
+        </style>
+    </head>
+    <body>
+        <div class="header">歡迎光臨，請輸入帳號密碼</div>
+        <div class="content1">
+            <div style="font-size: 20px; margin-bottom: 10px;">登入系統</div>
+            <form action="/signin" method="post" onsubmit="validateForm(event)">
+                <div class="form-group">
+                    <label for="account">帳號</label>
+                    <input type="text" name="username" id="account">
+                </div>
+                <div class="form-group">
+                    <label for="password">密碼</label>
+                    <input type="password" name="password" id="password">
+                </div>
+                <div class="form-group">
+                    <label></label> <!-- 讓 checkbox 和按鈕與輸入框對齊 -->
+                    同意條款<input type="checkbox" id="agree" style="margin-right: 5px;">
+                </div>
+                <div class="form-group">
+                    <label></label> <!-- 讓按鈕對齊 -->
+                    <button type="submit">登入</button>
+                </div>
+            </form>    
+        </div>
+        <hr class="divider">
+        <div class="content2">
+            <div style="font-size: 20px; margin-bottom: 10px;">計算正整數的平方</div>
+            <form id="squareForm">
+                <div class="form-group">
+                    <label for="int">正整數</label>
+                    <input type="int" name="num" id="int" required>
+                </div>
+                <div class="form-group">
+                    <label></label> <!-- 讓按鈕對齊 -->
+                    <button type="submit">計算</button>
+                </div>
+            </form>
+        </div>
+        <script>
+            document.getElementById("squareForm").onsubmit = function(event) {
+                event.preventDefault(); // 防止表單提交
+                let num = document.getElementById("int").value;
+                if (num) {
+                    window.location.href = "/square/" + num; // 重定向到正確的URL
+                }
+            };
+
+            function validateForm(event) {
+                let checkbox = document.getElementById("agree");
+                if (!checkbox.checked) {
+                    alert("Please check the checkbox first");
+                    event.preventDefault(); // 阻止表單提交
+                }
+            }
+        </script>
+    </body>
+</html>
+
