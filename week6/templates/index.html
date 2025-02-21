@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="utf-8"/>
+        <title>歡迎光臨</title>
+        <style>
+            body {position: relative; height: 100vh; margin: 0;}
+            .header {width: 100%;text-align: center; background-color: beige; padding: 15px 0; font-size: 20px; top: 0;}
+            .content1 {position: absolute; top: 25%; left: 50%; transform: translate(-50%, -50%); text-align: center;}
+            .content2 {position: absolute; top: 55%; left: 50%; transform: translate(-50%, -50%); text-align: center;}
+            .form-group{width: 250px; margin-top: 10px; margin-bottom: 10px;height: 25px;}
+            .divider {position: absolute; top: 40%; left: 50%; transform: translateX(-50%); width: 100%; height: 0.1px; background-color: black;}
+        </style>
+    </head>
+    <body>
+        <div class="header">歡迎光臨，請註冊登入系統</div>
+        <div class="content1">
+            <div style="font-size: 20px; margin-bottom: 10px;">註冊帳號</div>
+            <form action="/signup" method="post" onsubmit="validateForm(event)">
+                <div class="form-group">
+                    <label for="name">姓名</label>
+                    <input type="text" name="name" id="name">
+                </div>
+                <div class="form-group">
+                    <label for="username">帳號</label>
+                    <input type="text" name="username" id="username">
+                </div>
+                <div class="form-group">
+                    <label for="password">密碼</label>
+                    <input type="password" name="password" id="password">
+                </div>
+                <div class="form-group">
+                    <label></label> <!-- 讓按鈕對齊 -->
+                    <button type="submit">註冊</button>
+                </div>
+            </form>    
+        </div>
+        <hr class="divider">
+        <div class="content2">
+            <div style="font-size: 20px; margin-bottom: 10px;">登入系統</div>
+            <form action="/signin" method="post" onsubmit="validateForm(event)">
+                <div class="form-group">
+                    <label for="username">帳號</label>
+                    <input type="text" name="username" id="username">
+                </div>
+                <div class="form-group">
+                    <label for="password">密碼</label>
+                    <input type="password" name="password" id="password">
+                </div>
+                <div class="form-group">
+                    <label></label> <!-- 讓按鈕對齊 -->
+                    <button type="submit">登入</button>
+                </div>
+            </form> 
+        </div>
+    </body>
+</html>
